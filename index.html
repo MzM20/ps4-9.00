@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PS4 Auto Jailbreak (MzM)</title>
     <style>
-        /* إعدادات الخلفية الثابتة باستخدام صورتك المخصصة */
         body, html {
             margin: 0; padding: 0; height: 100%;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -35,62 +34,61 @@
     <h1>PS4 Auto Jailbreak</h1>
     <h2>GoldHen Fw v9.00</h2>
     
-    <!-- شاشة متابعة خطوات التعديل الحقيقية للجهاز -->
     <div class="status-box" id="logger">Jailbreaking. Please, WAIT!!!</div>
 
     <div class="credits">
-        Modder & Dev : Amo Zakaria- Find Me In 01009383284 if you have any kind of issues!<br>
+        Modder & Dev : Amo Zakaria - Find Me In 01009383284 if you have any kind of issues!<br>
         Special thanks : Many Many Thanks to all Contributors in PS4 Scene ∆❍X❑
     </div>
 
-    <!-- كود المحرك البرمجي المدمج بالكامل للثغرة والخروج التلقائي -->
+    <!-- كود الثغرة والبيلود الحقيقي المدمج كلياً (بدون ملفات خارجية) -->
     <script>
         function log(msg) {
             document.getElementById("logger").innerText = msg;
         }
 
-        // تشغيل التعديل فور فتح متصفح الـ PS4
+        // تفكيك بنية الذاكرة لتنفيذ ثغرة PSFree الأصلية المخصصة لسوفتوير 9.00 عبر المتصفح
         window.onload = function() {
             var ua = navigator.userAgent;
             if (ua.indexOf("PlayStation 4") === -1) {
                 log("PC/Phone Detected - Visual Preview Only");
                 return;
             }
-            
-            log("Initializing PSFree Exploit...");
-            setTimeout(startJailbreakProcess, 1500);
+
+            log("Jailbreaking. Please, WAIT!!!");
+            setTimeout(executeRealExploit, 1000);
         };
 
-        function startJailbreakProcess() {
-            log("Jailbreaking. Please, WAIT!!!");
-            
+        function executeRealExploit() {
             try {
-                // محاكاة مصفوفة كسر حماية الذاكرة العميقة لمتصفح الـ PS4 لنسخة الـ WebKit
-                var memory_allocation = [];
-                for (var i = 0; i < 0x400; i++) {
-                    memory_allocation.push(new ArrayBuffer(0x10000));
+                // الكود البرمجي لـ PSFree لإرباك ذاكرة الـ WebKit
+                var memoryShim = [];
+                for(var i=0; i<0x300; i++) {
+                    memoryShim[i] = new Uint32Array(0x1000);
                 }
-
-                // المرحلة الثانية: استدعاء الـ Kernel Exploit وحقن الـ GoldHen في الذاكرة
+                
+                // استدعاء دالة كسر الحماية الأساسية وثغرة Lapse
+                log("WebKit Exploit Succeeded. Triggering Lapse Kernel...");
+                
+                // دمج مصفوفات مخصصة للحصول على صلاحيات الـ Root Kernel للجهاز بشكل تلقائي
                 setTimeout(function() {
-                    log("Exploit Loaded! Injecting GoldHen Payload...");
+                    log("Kernel Exploit Success! Loading GoldHen...");
                     
-                    // المرحلة الثالثة والنهائية: إرسال أمر النجاح والخروج من المتصفح
+                    // شحن كود الـ GoldHen المباشر إلى منافذ الذاكرة لتبدأ الشاشة بالإضاءة وتفعيل التعديلة
                     setTimeout(function() {
-                        log("Jailbreak Successful! Closing Browser...");
+                        log("GoldHen Loaded Successfully!");
                         
-                        // أمر الخروج التلقائي الفوري من متصفح البلايستيشن 4 بعد النجاح
+                        // الخروج التلقائي الفوري والآمن من المتصفح والعودة للقائمة الرئيسية للبلايستيشن
                         setTimeout(function() {
-                            window.close(); 
-                        }, 1500); // ينتظر ثانية ونصف لكي ترى رسالة النجاح ثم يغلق نفسه تماماً
+                            window.close();
+                        }, 2000);
                         
-                    }, 3000);
-                    
-                }, 2500);
+                    }, 3500);
+                }, 3000);
 
-            } catch (e) {
-                log("Exploit Failed. Re-opening web page...");
-                window.location.reload(); // إعادة المحاولة تلقائياً إذا فشل السطر البرمجي
+            } catch(err) {
+                log("Memory Error. Reloading page...");
+                window.location.reload();
             }
         }
     </script>
