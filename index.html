@@ -1,97 +1,202 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PS4 Auto Jailbreak (MzM)</title>
+    <title>Amo zakaria - PS4 Exploit Host</title>
     <style>
-        body, html {
-            margin: 0; padding: 0; height: 100%;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('image_5V2M1Q.png') !important;
-            background-size: cover !important; background-position: center !important;
-            background-repeat: no-repeat !important; background-attachment: fixed !important;
-            color: white; display: flex; flex-direction: column;
-            justify-content: flex-start; align-items: center;
         }
-        h1 { font-size: 38px; margin-top: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.6); }
-        h2 { font-size: 26px; color: #ffcc00; margin-bottom: 20px; }
+
+        body {
+            background: url('bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 2px solid #f1c40f;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+            z-index: 1000;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #f1c40f;
+            text-shadow: 0 0 8px rgba(241, 196, 15, 0.6);
+        }
+
+        /* ترتيب الأزرار أفقياً من الشمال لليمين (ltr) */
+        .fw-buttons {
+            display: flex;
+            direction: ltr;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: nowrap;
+            width: 100%;
+        }
+
+        .btn-fw {
+            background: linear-gradient(135deg, #1e272e, #485460);
+            color: #fff;
+            border: 1px solid #d2dae2;
+            padding: 10px 18px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            outline: none;
+            white-space: nowrap;
+        }
+
+        .btn-fw:hover, .btn-fw:focus {
+            background: linear-gradient(135deg, #f1c40f, #e67e22);
+            color: #000;
+            border-color: #f1c40f;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(241, 196, 15, 0.8);
+        }
+
         .status-box {
-            font-size: 22px; font-weight: bold; background: rgba(15, 15, 15, 0.85);
-            padding: 20px 40px; border-radius: 8px; border: 1px solid #ffcc00;
-            box-shadow: 0 4px 15px rgba(255, 204, 0, 0.2); text-align: center;
-            max-width: 500px; width: 90%; margin-bottom: 25px;
+            width: 80%;
+            max-width: 650px;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
         }
-        .credits {
-            font-size: 14px; color: #bbb; text-align: center; line-height: 1.6;
-            background: rgba(0,0,0,0.5); padding: 15px; border-radius: 6px;
-            max-width: 500px; width: 90%;
+
+        .status-text {
+            font-size: 14px;
+            color: #00d2d3;
+            font-weight: 600;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 12px;
+            background: #2d3436;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #636e72;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #00b894, #00cec9);
+            transition: width 0.4s ease;
+        }
+
+        .goldhen-icon {
+            display: none;
+            width: 40px;
+            height: 40px;
+            margin-top: 4px;
+            animation: pulse 1.2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); filter: drop-shadow(0 0 5px #f1c40f); }
+            100% { transform: scale(1.15); filter: drop-shadow(0 0 20px #f1c40f); }
         }
     </style>
 </head>
 <body>
 
-    <h1>PS4 Auto Jailbreak</h1>
-    <h2>GoldHen Fw v9.00</h2>
-    
-    <div class="status-box" id="logger">Jailbreaking. Please, WAIT!!!</div>
+    <div class="top-bar">
+        <div class="header-title">مركز عمو زكريا - اختر إصدار السوفتوير لتفعيل GoldHEN</div>
+        
+        <!-- الأزرار مرتبة من الشمال (الأقل) لليمين (الأعلى) -->
+        <div class="fw-buttons">
+            <button class="btn-fw" onclick="selectFW('9.00')">FW 9.00</button>
+            <button class="btn-fw" onclick="selectFW('10.00')">FW 10.00 / 10.01</button>
+            <button class="btn-fw" onclick="selectFW('11.00')">FW 11.00</button>
+            <button class="btn-fw" onclick="selectFW('12.00')">FW 12.xx</button>
+            <button class="btn-fw" onclick="selectFW('13.00')">FW 13.xx</button>
+        </div>
 
-    <div class="credits">
-        Modder & Dev : Amo Zakaria - Find Me In 01009383284 if you have any kind of issues!<br>
-        Special thanks : Many Many Thanks to all Contributors in PS4 Scene ∆❍X❑
+        <div class="status-box" id="statusBox">
+            <div class="status-text" id="statusText">جاري التجهيز...</div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <svg class="goldhen-icon" id="goldHenIcon" viewBox="0 0 24 24" fill="#f1c40f">
+                <path d="M12 2l2.4 7.4h7.6l-6.2 4.5 2.4 7.4-6.2-4.5-6.2 4.5 2.4-7.4-6.2-4.5h7.6z"/>
+            </svg>
+        </div>
     </div>
 
-    <!-- كود الثغرة والبيلود الحقيقي المدمج كلياً (بدون ملفات خارجية) -->
+    <script src="int64.js"></script>
+    <script src="rop.js"></script>
+    <script src="webkit.js"></script>
+    <script src="kexploit.js"></script>
+    <script src="utils.js"></script>
+    <script src="exploit.js"></script>
+    <script src="goldhen.js"></script>
+
     <script>
-        function log(msg) {
-            document.getElementById("logger").innerText = msg;
+        function selectFW(fw) {
+            var statusBox = document.getElementById('statusBox');
+            var statusText = document.getElementById('statusText');
+            var progressBar = document.getElementById('progressBar');
+            var goldHenIcon = document.getElementById('goldHenIcon');
+
+            statusBox.style.display = 'flex';
+            goldHenIcon.style.display = 'none';
+
+            if (fw === '9.00') {
+                statusText.style.color = '#00d2d3';
+                statusText.innerHTML = "تم اختيار 9.00 - جاري بدء الثغرة...";
+                progressBar.style.width = "20%";
+                if (typeof runExploitSequence === 'function') {
+                    runExploitSequence();
+                }
+            } else if (fw === '11.00') {
+                statusText.style.color = '#e1b12c';
+                statusText.innerHTML = "تنويه: إصدار 11.00 يتطلب كابل الشبكة (PPPwn).";
+                progressBar.style.width = "0%";
+            } else {
+                statusText.style.color = '#e74c3c';
+                statusText.innerHTML = "إصدار " + fw + " لا يتوفر له تهكير متصفح حالياً.";
+                progressBar.style.width = "0%";
+            }
         }
 
-        // تفكيك بنية الذاكرة لتنفيذ ثغرة PSFree الأصلية المخصصة لسوفتوير 9.00 عبر المتصفح
-        window.onload = function() {
-            var ua = navigator.userAgent;
-            if (ua.indexOf("PlayStation 4") === -1) {
-                log("PC/Phone Detected - Visual Preview Only");
-                return;
-            }
+        function updateProgress(percent, text) {
+            document.getElementById('progressBar').style.width = percent + '%';
+            document.getElementById('statusText').innerHTML = text;
+        }
 
-            log("Jailbreaking. Please, WAIT!!!");
-            setTimeout(executeRealExploit, 1000);
-        };
+        function postExploit() {
+            var goldHenIcon = document.getElementById('goldHenIcon');
+            updateProgress(100, "تم تفعيل GoldHEN بنجاح! جاري إغلاق المتصفح...");
+            goldHenIcon.style.display = 'block';
 
-        function executeRealExploit() {
-            try {
-                // الكود البرمجي لـ PSFree لإرباك ذاكرة الـ WebKit
-                var memoryShim = [];
-                for(var i=0; i<0x300; i++) {
-                    memoryShim[i] = new Uint32Array(0x1000);
-                }
-                
-                // استدعاء دالة كسر الحماية الأساسية وثغرة Lapse
-                log("WebKit Exploit Succeeded. Triggering Lapse Kernel...");
-                
-                // دمج مصفوفات مخصصة للحصول على صلاحيات الـ Root Kernel للجهاز بشكل تلقائي
-                setTimeout(function() {
-                    log("Kernel Exploit Success! Loading GoldHen...");
-                    
-                    // شحن كود الـ GoldHen المباشر إلى منافذ الذاكرة لتبدأ الشاشة بالإضاءة وتفعيل التعديلة
-                    setTimeout(function() {
-                        log("GoldHen Loaded Successfully!");
-                        
-                        // الخروج التلقائي الفوري والآمن من المتصفح والعودة للقائمة الرئيسية للبلايستيشن
-                        setTimeout(function() {
-                            window.close();
-                        }, 2000);
-                        
-                    }, 3500);
-                }, 3000);
-
-            } catch(err) {
-                log("Memory Error. Reloading page...");
-                window.location.reload();
-            }
+            setTimeout(function() {
+                window.close();
+            }, 2000);
         }
     </script>
-
 </body>
 </html>
